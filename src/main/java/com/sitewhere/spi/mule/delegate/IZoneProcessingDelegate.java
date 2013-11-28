@@ -10,11 +10,12 @@
 
 package com.sitewhere.spi.mule.delegate;
 
+import java.util.List;
+
 import com.sitewhere.spi.ISiteWhereContext;
 import com.sitewhere.spi.SiteWhereException;
-import com.sitewhere.spi.device.IDeviceLocation;
-import com.sitewhere.spi.device.IZone;
 import com.sitewhere.spi.device.request.IDeviceAlertCreateRequest;
+import com.sitewhere.spi.geo.IZoneMatcher;
 
 /**
  * Delegate that receives callbacks for zone processing so that developers can specify
@@ -25,17 +26,13 @@ import com.sitewhere.spi.device.request.IDeviceAlertCreateRequest;
 public interface IZoneProcessingDelegate {
 
 	/**
-	 * Called by zone processing to indicate whether a location was found to be inside a
-	 * particular zone. The delegate may genereate an alert as a result of zone
-	 * processing.
+	 * Called by zone check code to delegate handling of client-specific zone logic.
 	 * 
 	 * @param context
-	 * @param zone
-	 * @param location
-	 * @param inside
+	 * @param matcher
 	 * @return
 	 * @throws SiteWhereException
 	 */
-	public IDeviceAlertCreateRequest handleZoneResults(ISiteWhereContext context, IZone zone,
-			IDeviceLocation location, boolean inside) throws SiteWhereException;
+	public List<IDeviceAlertCreateRequest> handleZoneResults(ISiteWhereContext context, IZoneMatcher matcher)
+			throws SiteWhereException;
 }
